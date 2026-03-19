@@ -117,30 +117,35 @@
         function fireBurst() { for(let i=0; i<7; i++) { setTimeout(launchRocket, i * 250); } }
         setInterval(fireBurst, 4000);
 
-        const scanBtn = document.getElementById("scanBtn");
+     const scanBtn = document.getElementById("scanBtn");
         let sTimer;
 
-        scanBtn.addEventListener("mousedown", (e) => {
-                    e.preventDefault();
-                    
-                    // 1. LAGU LANGSUNG MULAI DI SINI (DETIK KE-0 SAAT DITEKAN)
-                    if (audio.paused) {
-                        audio.play().catch(e => console.log("Izin browser diperlukan"));
-                    }
+        // Fungsi gabungan biar irit kode
+        function mulaiScan(e) {
+            if (e.cancelable) e.preventDefault(); 
+            if (audio.paused) {
+                audio.play().catch(err => console.log("Musik butuh klik"));
+            }
+            document.querySelector(".scan-line").style.display = "block";
+            sTimer = setTimeout(() => {
+                document.getElementById("sec-scan").classList.add("hidden");
+                startLoading(); // Manggil fungsi loading kamu di bawah
+            }, 3000);
+        }
 
-                    document.querySelector(".scan-line").style.display = "block";
-                    
-                    // 2. PROSES SCAN TETAP JALAN 3 DETIK
-                    sTimer = setTimeout(() => {
-                        document.getElementById("sec-scan").classList.add("hidden");
-                        startLoading();
-                    }, 3000);
-                });
-
-        window.addEventListener("mouseup", () => {
+        function stopScan() {
             clearTimeout(sTimer);
             document.querySelector(".scan-line").style.display = "none";
-        });
+        }
+
+        // Mouse (Laptop)
+        scanBtn.addEventListener("mousedown", mulaiScan);
+        window.addEventListener("mouseup", stopScan);
+
+        // Touch (HP)
+        scanBtn.addEventListener("touchstart", mulaiScan, { passive: false });
+        window.addEventListener("touchend", stopScan);
+        window.addEventListener("touchcancel", stopScan);
 
         function startLoading() {
             document.getElementById("sec-loading").classList.remove("hidden");
