@@ -1,0 +1,153 @@
+        :root {
+            --primary: #00ff88;
+            --islamic-green: #06402B;
+            --bg: #0a0a0a;
+            --gold: #f1c40f;
+            --cream: #fff5e1;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: linear-gradient(135deg, rgba(6, 64, 43, 0.5) 0%, rgba(10, 10, 10, 1) 100%);
+            color: white;
+            font-family: 'Shippori Antique', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- ORNAMEN LATAR BELAKANG --- */
+        .bg-ornament { position: absolute; opacity: 0.2; pointer-events: none; color: var(--gold); z-index: 1; animation: float 6s infinite ease-in-out; }
+        
+        .fa-mosque.main { font-size: 250px; bottom: -50px; left: -60px; color: var(--islamic-green); }
+        .fa-moon { font-size: 150px; top: 10px; right: 10px; filter: drop-shadow(0 0 20px var(--gold)); }
+        .fa-book-quran { font-size: 70px; top: 10%; left: 15%; animation-delay: 1s; }
+        .fa-beads { font-size: 60px; bottom: 20%; right: 5%; animation-delay: 2s; }
+        .fa-drum { font-size: 100px; bottom: 10%; right: 20%; color: var(--islamic-green); opacity: 0.15; }
+
+        /* UNTA SYSTEM */
+        @keyframes untaWalk { 0% { left: -100px; } 100% { left: 110%; } }
+        .unta-diam { font-size: 60px; bottom: 20px; left: 150px; opacity: 0.1; position: absolute; transform: scaleX(-1); }
+        .unta-jalan { font-size: 70px; bottom: 40px; opacity: 0.05; position: absolute; animation: untaWalk 30s infinite linear; }
+
+        /* Obor */
+        .torch { font-size: 60px; bottom: 40px; position: absolute; }
+        .t1 { left: 80px; } .t2 { right: 80px; }
+        .fa-fire { color: #ff4500; position: absolute; top: -35px; left: 8px; animation: flameAction 0.2s infinite; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-25px) rotate(5deg); } }
+        @keyframes flameAction { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); filter: brightness(2) drop-shadow(0 0 15px orange); } }
+
+        .rocket { position: absolute; width: 4px; height: 20px; background: linear-gradient(to top, transparent, var(--gold)); border-radius: 50%; z-index: 2; pointer-events: none; }
+
+        /* --- UI COMPONENTS --- */
+        #MainContainer { width: 90%; max-width: 480px; position: relative; z-index: 10; text-align: center; }
+        .hidden { display: none !important; }
+
+        /* Decoration Lines for Cards */
+        .card-deco-line { width: 60px; height: 3px; background: var(--gold); margin: 15px 0; border-radius: 2px; opacity: 0.6; }
+
+        /* Scanning */
+        .scan-wrapper { position: relative; width: 90px; height: 90px; margin: 0 auto; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 3px solid var(--gold); border-radius: 50%; background: rgba(6, 64, 43, 0.4); }
+        .fa-fingerprint { font-size: 60px; color: var(--gold); }
+        .scan-line { position: absolute; width: 90%; height: 5px; background: var(--gold); box-shadow: 0 0 20px var(--gold); display: none; animation: scanning 2s infinite linear; }
+        @keyframes scanning { 0% { top: 0%; } 100% { top: 100%; } }
+
+        /* Loading */
+        #loadingBarContainer { width: 100%; background: #222; height: 12px; border-radius: 10px; margin-top: 30px; overflow: hidden; border: 1px solid var(--gold); }
+        #loadingBar { width: 0%; height: 100%; background: var(--gold); }
+
+        /* Card Style */
+        .custom-card { 
+            background: rgba(6, 64, 43, 0.95); 
+            border: 2px solid var(--gold); 
+            border-radius: 20px; 
+            padding: 30px; 
+            box-shadow: 0 0 40px rgba(0,0,0,0.7); 
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagnosa-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px; /* Ukuran standar HP */
+            line-height: 1.8; /* Kasih jarak antar baris biar enak dibaca */
+            color: var(--primary); /* Warna hijau neon */
+            text-align: left; /* Teks list tetap di kiri */
+            padding: 5px;
+        }
+
+        /* Ketupat */
+        .ketupat-drop { display: block !important; animation: dropDown 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes dropDown { 0% { transform: translateY(-800px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        #ketupatBtn { font-size: 150px; cursor: pointer; filter: drop-shadow(0 0 30px var(--gold)); margin: 20px auto; animation: shakeGentle 3s infinite ease-in-out; }
+
+        /* Efek Ikon melayang-layang */
+        .ning-icon {
+            position: absolute;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: -1; /* Supaya di belakang ketupat */
+            animation: floatNing 3s infinite ease-in-out;
+        }
+
+        @keyframes floatNing {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-20px) rotate(20deg); opacity: 1; }
+        }
+
+        /* Animasi Goyang untuk Ketupat */
+        @keyframes shakeGentle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Profile */
+        .profile-img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--gold); margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
+        #thrBtn { display: none; margin-top: 25px; background: var(--gold); color: black; border: none; padding: 15px 35px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 16px; width: 100%; }
+  
+        /* --- COPYRIGHT FOOTER STYLE --- */
+        .footer-copyright {
+            position: fixed; /* Terpaku di layar */
+            bottom: 10px;    /* Jarak 10px dari bawah */
+            left: 0;
+            width: 100%;     /* Selebar layar */
+            text-align: center;
+            z-index: 5;      /* Di atas ornamen background, di bawah pop-up/card */
+            font-family: 'JetBrains Mono', monospace; /* Font hi-tech */
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5); /* Putih transparan agar tidak mencolok */
+            letter-spacing: 1px;
+        }
+
+        .footer-copyright p {
+            margin: 0;
+            margin-bottom: 2px;
+        }
+
+        .footer-copyright a {
+            color: var(--gold); /* Warna emas sesuai tema */
+            text-decoration: none; /* Hapus garis bawah */
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px; /* Jarak antara ikon IG dan teks */
+        }
+
+        /* Efek saat kursor di atasnya (Hover) */
+        .footer-copyright a:hover {
+            color: var(--primary); /* Berubah jadi hijau neon */
+            text-shadow: 0 0 10px var(--primary);
+            transform: scale(1.05); /* Sedikit membesar */
+        }
+
+        .footer-copyright a i {
+            font-size: 14px; /* Ukuran ikon IG sedikit lebih besar */
+        }
