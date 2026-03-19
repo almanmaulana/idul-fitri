@@ -120,32 +120,36 @@
      const scanBtn = document.getElementById("scanBtn");
         let sTimer;
 
-        // Fungsi gabungan biar irit kode
         function mulaiScan(e) {
+            // PAKSA browser buat diem, jangan nge-scroll atau nge-zoom
             if (e.cancelable) e.preventDefault(); 
+            
+            // Musik mulai
             if (audio.paused) {
-                audio.play().catch(err => console.log("Musik butuh klik"));
+                audio.play().catch(err => console.log("Cek izin audio"));
             }
+
             document.querySelector(".scan-line").style.display = "block";
+            
             sTimer = setTimeout(() => {
                 document.getElementById("sec-scan").classList.add("hidden");
-                startLoading(); // Manggil fungsi loading kamu di bawah
+                startLoading();
             }, 3000);
         }
 
-        function stopScan() {
+        function stopScan(e) {
             clearTimeout(sTimer);
             document.querySelector(".scan-line").style.display = "none";
         }
 
-        // Mouse (Laptop)
-        scanBtn.addEventListener("mousedown", mulaiScan);
-        window.addEventListener("mouseup", stopScan);
+        // Pakai cara 'onclick' & 'ontouch' langsung biar lebih paten di HP
+        scanBtn.onmousedown = mulaiScan;
+        window.onmouseup = stopScan;
 
-        // Touch (HP)
-        scanBtn.addEventListener("touchstart", mulaiScan, { passive: false });
-        window.addEventListener("touchend", stopScan);
-        window.addEventListener("touchcancel", stopScan);
+        // Khusus HP: { passive: false } itu hukumnya WAJIB biar preventDefault jalan
+        scanBtn.addEventListener('touchstart', mulaiScan, { passive: false });
+        scanBtn.addEventListener('touchend', stopScan, { passive: false });
+        scanBtn.addEventListener('touchcancel', stopScan, { passive: false });
 
         function startLoading() {
             document.getElementById("sec-loading").classList.remove("hidden");
